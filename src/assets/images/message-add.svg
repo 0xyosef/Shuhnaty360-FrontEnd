@@ -1,0 +1,39 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="40" height="40" fill="#D5D5D5"/>
+<g id="SMS System">
+<path d="M-1684 -1177C-1684 -1287.46 -1594.46 -1377 -1484 -1377H14251C14361.5 -1377 14451 -1287.46 14451 -1177V3275C14451 3385.46 14361.5 3475 14251 3475H-1484C-1594.46 3475 -1684 3385.46 -1684 3275V-1177Z" fill="#59330D"/>
+<path d="M-1484 -1376H14251V-1378H-1484V-1376ZM14450 -1177V3275H14452V-1177H14450ZM14251 3474H-1484V3476H14251V3474ZM-1683 3275V-1177H-1685V3275H-1683ZM-1484 3474C-1593.9 3474 -1683 3384.9 -1683 3275H-1685C-1685 3386.01 -1595.01 3476 -1484 3476V3474ZM14450 3275C14450 3384.9 14360.9 3474 14251 3474V3476C14362 3476 14452 3386.01 14452 3275H14450ZM14251 -1376C14360.9 -1376 14450 -1286.9 14450 -1177H14452C14452 -1288.01 14362 -1378 14251 -1378V-1376ZM-1484 -1378C-1595.01 -1378 -1685 -1288.01 -1685 -1177H-1683C-1683 -1286.9 -1593.9 -1376 -1484 -1376V-1378Z" fill="black" fill-opacity="0.1"/>
+<g id="1-Message-Empty_System">
+<rect width="1440" height="1024" transform="translate(-1236 -862)" fill="#F8F8F8"/>
+<g id="Frame 154">
+<g id="vuesax/linear/message-add" filter="url(#filter0_d_9_324)">
+<rect x="-20" y="-20" width="80" height="80" rx="40" fill="#DD7E1F" shape-rendering="crispEdges"/>
+<g id="vuesax/linear/message-add_2">
+<g id="message-add">
+<path id="Vector" d="M36.6666 12.3841V22.3841C36.6666 24.8841 35.8332 26.9675 34.3666 28.4341C32.9166 29.8841 30.8333 30.7174 28.3333 30.7174V34.2675C28.3333 35.6008 26.8499 36.4008 25.7499 35.6675L18.3333 30.7174H14.7999C14.9333 30.2174 14.9999 29.7008 14.9999 29.1675C14.9999 27.4675 14.3499 25.9008 13.2833 24.7175C12.0833 23.3508 10.2999 22.5008 8.33325 22.5008C6.46659 22.5008 4.76659 23.2675 3.54993 24.5175C3.39993 23.8508 3.33325 23.1341 3.33325 22.3841V12.3841C3.33325 7.38411 6.66659 4.05078 11.6666 4.05078H28.3333C33.3333 4.05078 36.6666 7.38411 36.6666 12.3841Z" stroke="#FCFCFC" stroke-width="2.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M15.0001 29.1667C15.0001 29.7 14.9334 30.2167 14.8001 30.7167C14.6501 31.3833 14.3834 32.0333 14.0334 32.6C12.8834 34.5333 10.7667 35.8333 8.33341 35.8333C6.61675 35.8333 5.06674 35.1833 3.90008 34.1166C3.40008 33.6833 2.96673 33.1667 2.63339 32.6C2.01673 31.6 1.66675 30.4167 1.66675 29.1667C1.66675 27.3667 2.38342 25.7167 3.55009 24.5167C4.76676 23.2667 6.46675 22.5 8.33341 22.5C10.3001 22.5 12.0834 23.35 13.2834 24.7167C14.3501 25.9 15.0001 27.4667 15.0001 29.1667Z" stroke="#FCFCFC" stroke-width="2.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="Group">
+<path id="Vector_3" d="M10.8167 29.1328H5.8501" stroke="#FCFCFC" stroke-width="2.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" d="M8.3335 26.6992V31.6825" stroke="#FCFCFC" stroke-width="2.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="Vector_5" d="M14.1667 17.5H25.8334" stroke="#FCFCFC" stroke-width="2.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_9_324" x="-36" y="-32" width="116" height="116" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="6" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_9_324"/>
+<feOffset dx="2" dy="6"/>
+<feGaussianBlur stdDeviation="6"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.866667 0 0 0 0 0.494118 0 0 0 0 0.121569 0 0 0 1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_9_324"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_9_324" result="shape"/>
+</filter>
+</defs>
+</svg>

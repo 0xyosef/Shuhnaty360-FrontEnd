@@ -1,0 +1,16 @@
+while read local_ref local_sha remote_ref remote_sha
+do
+  if [[ "$remote_ref" =~ "refs/heads/master" ]]; then
+    echo "--- Running pre-push checks for 'main' branch ---"
+    
+    echo "--- Running lint checks ---"
+    pnpm run lint || { echo "Linting failed! Aborting push to main."; exit 1; }
+
+    echo "--- Attempting to build the app ---"
+    pnpm run build || { echo "Build failed! Aborting push to main."; exit 1; }
+
+    echo "--- Pre-push checks passed for 'main' branch ---"
+  else
+    echo "--- Skipping pre-push checks for branch: ${remote_ref##*/}. Only 'main' branch is checked. ---"
+  fi
+done

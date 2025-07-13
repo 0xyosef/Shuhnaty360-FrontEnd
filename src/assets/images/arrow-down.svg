@@ -1,0 +1,38 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="24" height="24" fill="#D5D5D5"/>
+<g id="Shipments">
+<path d="M-1820 -9297C-1820 -9407.46 -1730.46 -9497 -1620 -9497H14207C14317.5 -9497 14407 -9407.46 14407 -9297V4798C14407 4908.46 14317.5 4998 14207 4998H-1620C-1730.46 4998 -1820 4908.46 -1820 4798V-9297Z" fill="#59330D"/>
+<path d="M-1620 -9496H14207V-9498H-1620V-9496ZM14406 -9297V4798H14408V-9297H14406ZM14207 4997H-1620V4999H14207V4997ZM-1819 4798V-9297H-1821V4798H-1819ZM-1620 4997C-1729.9 4997 -1819 4907.9 -1819 4798H-1821C-1821 4909.01 -1731.01 4999 -1620 4999V4997ZM14406 4798C14406 4907.9 14316.9 4997 14207 4997V4999C14318 4999 14408 4909.01 14408 4798H14406ZM14207 -9496C14316.9 -9496 14406 -9406.9 14406 -9297H14408C14408 -9408.01 14318 -9498 14207 -9498V-9496ZM-1620 -9498C-1731.01 -9498 -1821 -9408.01 -1821 -9297H-1819C-1819 -9406.9 -1729.9 -9496 -1620 -9496V-9498Z" fill="black" fill-opacity="0.1"/>
+<g id="7-Shipments_Table-Rejected">
+<rect width="1440" height="1024" transform="translate(-1205 -316)" fill="#F8F8F8"/>
+<g id="Frame 154">
+<g id="SideMenu/Admin">
+<mask id="path-3-inside-1_9_324" fill="white">
+<path d="M-32 -316H235V708H-32V-316Z"/>
+</mask>
+<path d="M-32 -316H235V708H-32V-316Z" fill="#E6E6E6"/>
+<path d="M-31 708V-316H-33V708H-31Z" fill="#CCCCCC" mask="url(#path-3-inside-1_9_324)"/>
+<g id="Frame 146">
+<g id="Frame 145">
+<g id="Frame 90">
+<g id="Frame 84">
+<g id="ShipmentsDrpDwn">
+<g id="Frame 119">
+<g id="vuesax/linear/arrow-left">
+<g id="vuesax/linear/arrow-left_2">
+<g id="arrow-left">
+<path id="Vector" d="M19.9201 9.00016L13.4001 15.5202C12.6301 16.2902 11.3701 16.2902 10.6001 15.5202L4.08008 9.00016" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>
