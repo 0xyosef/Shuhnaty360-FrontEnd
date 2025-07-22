@@ -4,11 +4,14 @@ import {
   useTruckTypesOptions,
 } from "@/api/drivers.api";
 import { useShipmentQuery } from "@/api/shipments.api";
-import ComboboxField from "@/components/ui/ComboboxField";
+import { Button } from "@/components/ui/button";
+import ComboboxField, { Option } from "@/components/ui/ComboboxField";
 import PhoneInputField from "@/components/ui/PhoneInputField";
 import TextInputField from "@/components/ui/TextInputField";
+import AddDriverDialog from "@/pages/shipments/components/AddDriverDialog";
 import { ShipmentSerializerSchema } from "@/schemas/shipment.schema";
-import { useEffect, useMemo } from "react";
+import { Plus } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Control,
   FieldErrors,
@@ -33,6 +36,10 @@ const ShipmentDriverSection = ({
   setValue,
 }: ShipmentDriverSectionProps) => {
   const { shipmentId } = useParams();
+  const [addDriverDialogIsOpen, setAddDriverDialogIsOpen] = useState(false);
+  const comboboxRef = useRef<{
+    setSelectedOption: (option: Option) => void;
+  } | null>(null);
   const { data: shipmentData } = useShipmentQuery(shipmentId);
 
   const selectedDriverId = useWatch({
@@ -92,7 +99,17 @@ const ShipmentDriverSection = ({
   }, [selectedDriverId, setValue, truckTypeOptions, driverData, shipmentData]);
 
   return (
-    <FormSectionWrapper title="السائق">
+    <FormSectionWrapper
+      title="السائق"
+      sectionOptions={() => {
+        return (
+          <Button onClick={() => setAddDriverDialogIsOpen(true)}>
+            <Plus />
+            إضافة سائق
+          </Button>
+        );
+      }}
+    >
       <ComboboxField
         name="driver"
         label="الاسم"
@@ -105,6 +122,7 @@ const ShipmentDriverSection = ({
         onSearch={setDriverSearch}
         setValue={setValue}
         ref={driverRef}
+        imperativeRef={comboboxRef}
       />
       <PhoneInputField
         name="driver_phone_number"
@@ -126,6 +144,20 @@ const ShipmentDriverSection = ({
         onSearch={setTruckTypeSearch}
         setValue={setValue}
         ref={truckTypeRef}
+      />
+      <AddDriverDialog
+        isOpen={addDriverDialogIsOpen}
+        setIsOpen={setAddDriverDialogIsOpen}
+        onCreate={(data) => {
+          setValue("driver", data.data.id!);
+
+          comboboxRef.current?.setSelectedOption({
+            value: data.data.id!,
+            label: data.data.name,
+          });
+
+          setAddDriverDialogIsOpen(false);
+        }}
       />
     </FormSectionWrapper>
   );

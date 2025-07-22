@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { CheckIcon, ChevronsUpDownIcon, Loader2 } from "lucide-react";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useImperativeHandle, useState } from "react";
 import {
   Control,
   Controller,
@@ -23,7 +23,7 @@ import {
   useWatch,
 } from "react-hook-form";
 
-type Option = {
+export type Option = {
   value: string | number;
   label?: string | ReactNode;
 };
@@ -48,6 +48,7 @@ export type ComboboxProps = {
   className?: string;
   popoverClassName?: string;
   disabled?: boolean;
+  imperativeRef?: React.Ref<{ setSelectedOption: (option: Option) => void }>;
 };
 
 export function ComboboxField({
@@ -70,12 +71,18 @@ export function ComboboxField({
   className,
   popoverClassName = "p-0",
   disabled = false,
+  imperativeRef,
 }: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [internalSelectedOption, setInternalSelectedOption] = useState<
     Option | undefined
   >(selectedOption);
+  useImperativeHandle(imperativeRef, () => ({
+    setSelectedOption: (option: Option) => {
+      setInternalSelectedOption(option);
+    },
+  }));
 
   const value = useWatch({
     control,

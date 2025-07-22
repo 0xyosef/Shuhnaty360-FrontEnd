@@ -1,11 +1,14 @@
 import { useRecipientQuery, useRecipientsOptions } from "@/api/recipients.api";
 import { useShipmentQuery } from "@/api/shipments.api";
-import ComboboxField from "@/components/ui/ComboboxField";
+import { Button } from "@/components/ui/button";
+import ComboboxField, { Option } from "@/components/ui/ComboboxField";
 import PhoneInputField from "@/components/ui/PhoneInputField";
 import TextAreaField from "@/components/ui/TextAreaField";
 import TextInputField from "@/components/ui/TextInputField";
+import AddRecipientDialog from "@/pages/shipments/components/AddRecipientDialog";
 import { ShipmentSerializerSchema } from "@/schemas/shipment.schema";
-import { useEffect, useState } from "react";
+import { Plus } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import {
   Control,
   FieldErrors,
@@ -30,7 +33,12 @@ const ShipmentRecipientSection = ({
   setValue,
 }: ShipmentRecipientSectionProps) => {
   const { shipmentId } = useParams();
+  const [addRecipientDialogIsOpen, setAddRecipientDialogIsOpen] =
+    useState(false);
   const { data: shipmentData } = useShipmentQuery(shipmentId);
+  const comboboxRef = useRef<{
+    setSelectedOption: (option: Option) => void;
+  } | null>(null);
 
   const [showNotes, setShowNotes] = useState(false);
   const [recipientNotes, recipientId] = useWatch({
@@ -53,7 +61,7 @@ const ShipmentRecipientSection = ({
     hasNextPage: hasNextRecipientPage,
     ref: recipientRef,
   } = useRecipientsOptions();
-  const { data: recipientData } = useRecipientQuery(recipientId);
+  const { data: recipientData } = useRecipientQuery(recipientId || undefined);
 
   const recipientOptions = recipients?.items || [];
 
@@ -62,7 +70,17 @@ const ShipmentRecipientSection = ({
   }, [hasNotes, showNotes]);
 
   return (
-    <FormSectionWrapper title="المستلِم">
+    <FormSectionWrapper
+      title="المستلِم"
+      sectionOptions={() => {
+        return (
+          <Button onClick={() => setAddRecipientDialogIsOpen(true)}>
+            <Plus />
+            إضافة مستلم
+          </Button>
+        );
+      }}
+    >
       <ComboboxField
         name="recipient"
         label="الاسم"
@@ -75,6 +93,7 @@ const ShipmentRecipientSection = ({
         onSearch={setRecipientSearch}
         setValue={setValue}
         ref={recipientRef}
+        imperativeRef={comboboxRef}
       />
       <TextInputField
         value={recipientData?.data.address || undefined}
@@ -110,6 +129,21 @@ const ShipmentRecipientSection = ({
           إضافة ملاحظات
         </button>
       )}
+      <AddRecipientDialog
+        isOpen={addRecipientDialogIsOpen}
+        setIsOpen={setAddRecipientDialogIsOpen}
+        onCreate={(data) => {
+          console.log(data);
+          setValue("recipient", data.data.id!);
+
+          comboboxRef.current?.setSelectedOption({
+            value: data.data.id!,
+            label: data.data.name,
+          });
+
+          setAddRecipientDialogIsOpen(false);
+        }}
+      />
     </FormSectionWrapper>
   );
 };
