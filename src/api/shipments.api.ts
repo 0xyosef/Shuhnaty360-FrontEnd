@@ -1,5 +1,4 @@
 import {
-  InfiniteData,
   useInfiniteQuery,
   useMutation,
   useQuery,
@@ -189,69 +188,38 @@ export const useUpdateShipmentStatus = (keys?: any) => {
       status: number;
       status_name: string;
     }) => {
-      const response = await api.patch(ENDPOINT + `update/${id}`, {
+      const response = await api.patch(ENDPOINT + `update/status/${id}`, {
         status,
       });
       return response.data;
     },
 
-    onMutate: async ({ id, status, status_name }) => {
+    onMutate: async ({ status, status_name }) => {
       await queryClient.cancelQueries({
         queryKey: [KEY, keys],
       });
 
       const previousData = queryClient.getQueryData<
-        | InfiniteData<ApiListResponse<ShipmentSerializerList>>
-        | ApiResponse<ShipmentSerializerDetail>
+        ApiResponse<ShipmentSerializerDetail>
       >([KEY, keys]);
 
-      if (previousData && "pages" in previousData) {
-        queryClient.setQueryData<
-          InfiniteData<ApiListResponse<ShipmentSerializerList>>
-        >([KEY, keys], (oldData) => {
+      queryClient.setQueryData<ApiResponse<ShipmentSerializerDetail>>(
+        [KEY, keys],
+        (oldData) => {
           if (!oldData) return oldData;
-
           return {
             ...oldData,
-            pages: oldData.pages.map((page) => ({
-              ...page,
-              data: {
-                ...page.data,
-                results: page.data.results.map((shipment) =>
-                  shipment.id === id
-                    ? {
-                        ...shipment,
-                        status: {
-                          ...shipment.status!,
-                          id: status,
-                          name_ar: status_name,
-                        },
-                      }
-                    : shipment,
-                ),
+            data: {
+              ...oldData.data,
+              status: {
+                ...oldData.data.status!,
+                id: status,
+                name_ar: status_name,
               },
-            })),
+            },
           };
-        });
-      } else if (previousData && "data" in previousData) {
-        queryClient.setQueryData<ApiResponse<ShipmentSerializerDetail>>(
-          [KEY, id],
-          (oldData) => {
-            if (!oldData) return oldData;
-            return {
-              ...oldData,
-              data: {
-                ...oldData.data,
-                status: {
-                  ...oldData.data.status!,
-                  id: status,
-                  name_ar: status_name,
-                },
-              },
-            };
-          },
-        );
-      }
+        },
+      );
 
       return { previousData };
     },
@@ -264,7 +232,7 @@ export const useUpdateShipmentStatus = (keys?: any) => {
       toast.error(err?.message || "حدث خطأ أثناء تحديث حالة الشحنة");
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [KEY, keys] });
+      queryClient.invalidateQueries({ queryKey: [KEY] });
     },
   });
 };

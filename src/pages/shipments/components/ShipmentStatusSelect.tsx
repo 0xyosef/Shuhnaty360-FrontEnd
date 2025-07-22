@@ -79,7 +79,10 @@ const ShipmentStatusSelect = ({
   }
 
   return (
-    <div className={`relative inline-block ${className}`} ref={dropdownRef}>
+    <div
+      className={`relative z-40 inline-block ${className}`}
+      ref={dropdownRef}
+    >
       <button
         type="button"
         onClick={(e) => {
@@ -93,7 +96,7 @@ const ShipmentStatusSelect = ({
       </button>
 
       {isOpen && (
-        <div className="absolute flex flex-col z-10 mt-1 w-full bg-white shadow-lg rounded-md py-1">
+        <div className="absolute flex flex-col z-50 mt-1 w-full bg-white shadow-lg rounded-md py-1">
           {statusOptions.map((option) => (
             <button
               key={option.value}
