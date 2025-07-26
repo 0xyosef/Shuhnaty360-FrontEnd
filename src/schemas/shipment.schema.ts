@@ -112,10 +112,12 @@ export const shipmentSerializerSchema = fixHtmlFormOptionalFields(
       })
       .nullable()
       .optional(),
-    recipient: z.number({
-      required_error: "المستلم مطلوب",
-      invalid_type_error: "المستلم يجب أن يكون رقمًا",
-    }),
+    recipient: z
+      .number({
+        invalid_type_error: "المستلم يجب أن يكون رقمًا",
+      })
+      .nullable()
+      .optional(),
     notes_recipient: z
       .string({
         invalid_type_error: "ملاحظات المستلم يجب أن تكون نصًا",

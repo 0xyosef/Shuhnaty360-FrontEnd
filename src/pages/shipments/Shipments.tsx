@@ -9,13 +9,11 @@ import { useDebounce } from "use-debounce";
 import {
   ShipmentFiltersType,
   useShipmentsInfinityQuery,
-  useUpdateShipmentStatus,
 } from "../../api/shipments.api";
 import SearchInput from "../../components/searchInput/SearchInput";
 import { Table, TableCell, TableRow } from "../../components/ui/Table";
 import { formatDate } from "../../utils/formatDate";
 import { ShipmentFilters } from "./components/ShipmentFilters";
-import ShipmentStatusSelect from "./components/ShipmentStatusSelect";
 
 const tableColumns = [
   { label: "رقم الشحنة", key: "id" },
@@ -81,17 +79,24 @@ const Shipments = () => {
 
   const { data, isFetching, hasNextPage, ref, error, fetchNextPage } =
     useShipmentsInfinityQuery(params);
-  const { mutate } = useUpdateShipmentStatus(params);
 
-  const handleStatusChange = (
-    id: number,
-    status: { id: number; name_ar: string },
-  ) => {
-    mutate({
-      id,
-      status: status.id,
-      status_name: status.name_ar,
-    });
+  const getStatusBgColor = (status: string) => {
+    switch (status) {
+      case "قيد الشحن":
+        return "bg-[#B3E5BD] text-[#071309]";
+      case "متأخرة":
+        return "bg-[#FEDE9A] text-[#191100]";
+      case "تم التوصيل":
+        return "bg-[#E6E6E6] text-[#333333]";
+      case "ملغيه":
+        return "bg-[#CD2026] text-[#FCFCFC]";
+      case "مرتجعة":
+        return "bg-[#F8D3D4] text-[#CD2026]";
+      case "مكتملة":
+        return "bg-[#2E853F] text-white";
+      default:
+        return "bg-gray-300";
+    }
   };
 
   const shipmentsData = data?.items || [];
@@ -191,13 +196,15 @@ const Shipments = () => {
                 <TableCell className="text-center">
                   {shipment.loading_date && formatDate(shipment.loading_date)}
                 </TableCell>
-                <TableCell>
-                  <ShipmentStatusSelect
-                    status={shipment.status?.name_ar || ""}
-                    onStatusChange={(status) =>
-                      handleStatusChange(shipment.id!, status)
-                    }
-                  />
+                <TableCell className="z-30">
+                  <span
+                    className={`py-2 text-center font-medium inline-block rounded-md w-36 text-sm ${
+                      shipment.status?.name_ar &&
+                      getStatusBgColor(shipment.status?.name_ar)
+                    } `}
+                  >
+                    {shipment.status?.name_ar || "-"}
+                  </span>
                 </TableCell>
               </TableRow>
             ))}

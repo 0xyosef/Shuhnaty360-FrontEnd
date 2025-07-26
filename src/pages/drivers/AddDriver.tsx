@@ -1,5 +1,7 @@
 import PageLoader from "@/components/PageLoader";
+import { ApiResponse } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DriverList } from "Api";
 import { Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +12,11 @@ import DriverForm, {
   driverSchema,
 } from "./components/DriverForm";
 
-const AddDriver = () => {
+const AddDriver = ({
+  onCreate,
+}: {
+  onCreate?: (data: ApiResponse<DriverList>) => void;
+}) => {
   const navigate = useNavigate();
 
   const {
@@ -27,9 +33,13 @@ const AddDriver = () => {
 
   const onSubmit = handleSubmit((formData: DriverFormData) => {
     mutate(formData, {
-      onSuccess: () => {
-        navigate("/drivers");
-        toast.success("تم إضافة السائق بنجاح");
+      onSuccess: (data: ApiResponse<DriverList>) => {
+        if (onCreate) {
+          onCreate(data);
+        } else {
+          navigate("/drivers");
+          toast.success("تم إضافة السائق بنجاح");
+        }
       },
       onError: (error: any) => {
         console.error(error);

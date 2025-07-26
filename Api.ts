@@ -1720,7 +1720,7 @@ export interface ShipmentSerializerCreate {
   /** ملاحظات العميل */
   notes_customer?: string | null;
   /** Recipient */
-  recipient: number;
+  recipient?: number | null;
   /** ملاحظات المستلم */
   notes_recipient?: string | null;
   /** Fare */

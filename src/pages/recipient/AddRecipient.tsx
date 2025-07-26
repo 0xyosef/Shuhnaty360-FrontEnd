@@ -1,5 +1,7 @@
 import PageLoader from "@/components/PageLoader";
+import { ApiResponse } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { RecipientSerializerCreate } from "Api";
 import { Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +13,11 @@ import {
   RecipientSerializerSchema,
 } from "../../schemas/recipient.schema";
 
-const AddRecipient = () => {
+const AddRecipient = ({
+  onCreate,
+}: {
+  onCreate?: (data: ApiResponse<RecipientSerializerCreate>) => void;
+}) => {
   const navigate = useNavigate();
 
   const {
@@ -28,9 +34,13 @@ const AddRecipient = () => {
 
   const onSubmit = handleSubmit((formData: RecipientSerializerSchema) => {
     mutate(formData, {
-      onSuccess: () => {
-        toast.success("تم إضافة العميل بنجاح");
-        navigate("/recipients");
+      onSuccess: (data: ApiResponse<RecipientSerializerCreate>) => {
+        if (onCreate) {
+          onCreate(data);
+        } else {
+          toast.success("تم إضافة العميل بنجاح");
+          navigate("/recipients");
+        }
       },
     });
   });
