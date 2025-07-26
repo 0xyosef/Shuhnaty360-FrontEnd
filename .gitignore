@@ -26,3 +26,5 @@ dist-ssr
 
 # Dependency directories
 swagger.json
+
+.env.production
