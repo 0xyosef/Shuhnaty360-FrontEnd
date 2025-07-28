@@ -1,6 +1,6 @@
 import { QRCodeSVG } from "qrcode.react";
 import { useLocation } from "react-router-dom";
-import { ShipmentSerializerDetail } from "../../../../Api";
+import type { ShipmentSerializerDetail } from "../../../../Api";
 import { formatDate } from "../../../utils/formatDate";
 import WaybillInfoRow from "./WaybillInfoRow";
 

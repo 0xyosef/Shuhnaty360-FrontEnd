@@ -1,8 +1,9 @@
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import { useEffect, useRef } from "react";
-import { ShipmentSerializerDetail } from "../../../../Api";
+import { useEffect, useRef, useState } from "react";
+import type { ShipmentSerializerDetail } from "../../../../Api";
+import { quickPrint } from "../../../utils/printHelper";
 import { Waybill } from "./Waybill";
 
 export default function PrintWaybillDialog({
@@ -15,6 +16,8 @@ export default function PrintWaybillDialog({
   setOpen: (open: boolean) => void;
 }) {
   const descriptionElementRef = useRef<HTMLElement>(null);
+  const [isPrinting, setIsPrinting] = useState(false);
+
   useEffect(() => {
     if (open) {
       const { current: descriptionElement } = descriptionElementRef;
@@ -23,6 +26,21 @@ export default function PrintWaybillDialog({
       }
     }
   }, [open]);
+
+  const handlePrint = async () => {
+    try {
+      setIsPrinting(true);
+      await quickPrint("waybill-printable", `بوليصة شحن - ${shipment.id}`);
+      setTimeout(() => setOpen(false), 400);
+    } catch (error) {
+      console.error("Print failed:", error);
+      // في حالة فشل الطباعة المحسنة، استخدم الطباعة العادية
+      window.print();
+      setTimeout(() => setOpen(false), 400);
+    } finally {
+      setIsPrinting(false);
+    }
+  };
 
   return (
     <>
@@ -47,24 +65,25 @@ export default function PrintWaybillDialog({
         </DialogContent>
         <DialogActions sx={{ margin: "10px 0 0" }}>
           <div className="grid grid-cols-2 gap-4 w-full mb-2">
-            {["إلغاء", "طباعة"].map((item: string, index: number) => (
+            {[
+              { text: "إلغاء", action: () => setOpen(false) },
+              {
+                text: isPrinting ? "جاري الطباعة..." : "طباعة",
+                action: handlePrint,
+              },
+            ].map((item, index) => (
               <button
-                onClick={
-                  index === 0
-                    ? () => setOpen(false)
-                    : () => {
-                        window.print();
-                        setTimeout(() => setOpen(false), 400);
-                      }
-                }
-                key={index}
+                type="button"
+                onClick={item.action}
+                key={item.text}
+                disabled={isPrinting}
                 className={`col-span-1 ${
                   index === 0
                     ? "bg-[#FCFCFC] text-[#DD7E1F]"
                     : "bg-[#DD7E1F] text-[#FCFCFC]"
-                } border border-[#DD7E1F] py-3 rounded-lg`}
+                } border border-[#DD7E1F] py-3 rounded-lg disabled:opacity-50`}
               >
-                {item}
+                {item.text}
               </button>
             ))}
           </div>

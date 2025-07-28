@@ -4,15 +4,14 @@ import {
 } from "@/api/payment-vouchers.api";
 import ErrorContainer from "@/components/ErrorContainer";
 import PageLoader from "@/components/PageLoader";
+import PrintButton from "@/components/PrintButton";
 import usePrivilege from "@/hooks/usePrivilege";
 import { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useReactToPrint } from "react-to-print";
 
 import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/Card";
 import { PaymentVoucherRejectionSchema } from "@/schemas/payment-voucher.schema";
-import { Printer } from "lucide-react";
 import PaymentVoucherRejectionDialog from "./components/PaymentVoucherRejectionDialog";
 import PrintableVoucher from "./components/PrintableVoucher";
 
@@ -33,12 +32,6 @@ const PaymentVoucherDetails = () => {
   const voucher = voucherData?.data;
 
   const printRef = useRef<HTMLDivElement>(null);
-
-  const handlePrint = useReactToPrint({
-    contentRef: printRef,
-    onBeforePrint: async () => document.body.classList.add("is-printing"),
-    onAfterPrint: () => document.body.classList.remove("is-printing"),
-  });
 
   if (voucherError) {
     return (
@@ -197,13 +190,19 @@ const PaymentVoucherDetails = () => {
                     </div>
                   )}
                 {voucher.approval_status === "approved" ? (
-                  <Button
-                    onClick={handlePrint}
-                    className="bg-[#DD7E1F] hover:bg-[#c96e19] text-white px-4 py-2 rounded-lg flex items-center gap-2"
-                  >
-                    <Printer className="size-5" />
-                    طباعة
-                  </Button>
+                  <PrintButton
+                    elementId="waybill-printable"
+                    title={`سند صرف - ${voucher?.id}`}
+                    pageSize="A5"
+                    orientation="landscape"
+                    className="bg-[#DD7E1F] hover:bg-[#c96e19] text-white"
+                    onBeforePrint={() =>
+                      document.body.classList.add("is-printing")
+                    }
+                    onAfterPrint={() =>
+                      document.body.classList.remove("is-printing")
+                    }
+                  />
                 ) : (
                   <Button>
                     <Link to={`/payment-vouchers/edit/${paymentVoucherId}`}>
